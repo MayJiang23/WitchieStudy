@@ -1,6 +1,6 @@
 Revision:
-A time-managing iOS productivity application.
-Fundamental Features: Timed Focus Sessions, Session Record, Mode Switch (Hard/Focus Mode, Idle/Relax Mode)
+A time-managing iOS productivity application similar to Forest.
+Fundamental Features: Timed Focus Sessions, Session Record
 Support Systems:
 1. User creates a personalized character (in theme of western magical world)
 2. User finishes productivity session to earn rewards that gain: 
