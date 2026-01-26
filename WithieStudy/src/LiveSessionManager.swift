@@ -24,7 +24,6 @@ class LiveSessionManager: ObservableObject {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    
     init(history: SessionHistoryManager, sessionTypes: SessionTypeManager) {
         self.historyManager = history
         self.sessionTypeManager = sessionTypes

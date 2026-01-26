@@ -25,3 +25,4 @@ class SessionTypeManager {
         return sessionTypes.contains { $0.title == name }
     }
 }
+

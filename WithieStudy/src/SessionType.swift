@@ -10,3 +10,4 @@ struct SessionType: Identifiable {
     var title: String
     //var themeAnimation: ThemeAnimation
 }
+

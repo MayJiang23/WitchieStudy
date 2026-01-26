@@ -12,3 +12,4 @@ struct PastSession: Identifiable {
     let dateCompleted: Date
     var notes: String = "When focused, time flies by fast..."
 }
+

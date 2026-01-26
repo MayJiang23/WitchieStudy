@@ -8,3 +8,4 @@ import Foundation
 struct ThemeAnimation: Identifiable {
     let id = UUID()
 }
+

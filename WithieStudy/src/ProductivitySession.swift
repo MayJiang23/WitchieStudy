@@ -11,3 +11,4 @@ struct ProductivitySession {
     var durationInSeconds: Int
     var type: SessionType
 }
+
