@@ -3,20 +3,29 @@
 //  WithieStudy
 //
 //
-
 import Foundation
+import SwiftData
+import _SwiftData_SwiftUI
 
 class SessionHistoryManager {
-    var sessionLogs: [PastSession] = []
+    var modelContext: ModelContext
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
     
     func addSession(type: SessionType, duration: TimeInterval, dateCompleted: Date, notes: String) {
         let session = PastSession(type: type, duration : duration, dateCompleted: dateCompleted, notes: notes)
-        sessionLogs.append(session)
+        modelContext.insert(session)
     }
     
     func editSessionNote(id: UUID, newNotes: String) {
-        if let index = sessionLogs.firstIndex(where: { $0.id == id }) {
-            sessionLogs[index].notes = newNotes
+        let descriptor = FetchDescriptor<PastSession>(
+            predicate: #Predicate { $0.id == id }
+        )
+        
+        if let session = try? modelContext.fetch(descriptor).first {
+            session.notes = newNotes
         }
     }
 }

@@ -3,13 +3,24 @@
 //  WithieStudy
 //
 //
+import SwiftData
 import Foundation
 
-struct PastSession: Identifiable {
-    let id = UUID()
-    let type: SessionType
-    let duration: TimeInterval
-    let dateCompleted: Date
-    var notes: String = "When focused, time flies by fast..."
+@Model
+class PastSession {
+    var id: UUID
+    var type: SessionType
+    var duration: TimeInterval
+    var dateCompleted: Date
+    var notes: String
+    
+    init(type: SessionType, duration: TimeInterval, dateCompleted: Date, notes: String = "Time flies by...")
+    {
+        self.id = UUID()
+        self.type = type
+        self.duration = duration
+        self.dateCompleted = dateCompleted
+        self.notes = notes
+    }
 }
 

@@ -62,13 +62,12 @@ class LiveSessionManager: ObservableObject {
         secondsRemain = currentSession.durationInSeconds
     }
     
-    func finish() {
+    func finish() -> Void {
         pauseTimer()
         resetTimer()
         
         let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
         
         historyManager.addSession(type: currentType, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
-        
     }
 }
