@@ -7,7 +7,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ProductivitySession {
+class ProductivitySession: Identifiable {
     var id: UUID
     var startTime: Date
     var durationInSeconds: Int
@@ -20,8 +20,17 @@ class ProductivitySession {
         self.startTime = startTime
     }
     
-    func set_startTime(startTime: Date) {
-        self.startTime = startTime
+    func set(startTime: Date?, type: SessionType?, durationInSeconds: Int?) {
+        if let startTime = startTime {
+            self.startTime = startTime
+        }
+        if let type = type {
+            self.type = type
+        }
+        if let durationInSeconds = durationInSeconds {
+            self.durationInSeconds = durationInSeconds
+        }
+        
     }
 }
 

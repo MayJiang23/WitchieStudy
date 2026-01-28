@@ -6,68 +6,59 @@
 import Foundation
 import Combine
 
-
-class LiveSessionManager: ObservableObject {
-    @Published var secondsRemain: Int = 1500
-    @Published var currentType: SessionType = SessionType(title: "Work")
-    @Published var isActive: Bool = false
-    @Published var currentSession: ProductivitySession = ProductivitySession(startTime: Date.now, durationInSeconds: 1500, type: SessionType(title: "Work"))
-
-    private var timer: Timer?
+@Observable
+class LiveSessionManager {
+    private var cancellables = Set<AnyCancellable>()
     
+    var isActive: Bool = false
+    var secondsRemain: Int = 1500
+    var currentSession: ProductivitySession = ProductivitySession(startTime: Date.now, durationInSeconds: 1500, type: SessionType(title: "Work"))
+    var timer: SessionTimer = SessionTimer()
     var historyManager: SessionHistoryManager
     var sessionTypeManager: SessionTypeManager
     
-    var timeFormatted: String {
-        let minutes = secondsRemain / 60
-        let seconds = secondsRemain % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
+    
     
     init(history: SessionHistoryManager, sessionTypes: SessionTypeManager) {
         self.historyManager = history
         self.sessionTypeManager = sessionTypes
+        timer.$secondsRemain
+            .receive(on: RunLoop.main)
+            .assign(to: \.secondsRemain, on: self)
+            .store(in: &cancellables)
+        
     }
     
     func editSession(type: SessionType, durationInSeconds: Int) {
-        currentSession.type = type
-        currentType = type
-        secondsRemain = durationInSeconds
-        currentSession.durationInSeconds = durationInSeconds
+        currentSession.set(startTime: nil, type: type, durationInSeconds: durationInSeconds)
+        timer.setTimer(newTime: durationInSeconds)
     }
     
     func start() {
-        currentSession.startTime = Date.now
-        resumeTimer()
-    }
-    
-    func resumeTimer() {
+        currentSession.set(startTime: Date.now, type: nil, durationInSeconds: nil)
         isActive = true
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {
-            _ in
-            if self.secondsRemain > 0 {
-                self.secondsRemain -= 1
-            } else {
-                self.finish()
-            }
-        }
+        timer.resume()
     }
     
     func pauseTimer() {
         isActive = false
-        timer?.invalidate()
+        timer.pause()
     }
     
     func resetTimer() {
-        secondsRemain = currentSession.durationInSeconds
+        timer.setTimer(newTime: currentSession.durationInSeconds)
     }
     
     func finish() -> Void {
         pauseTimer()
-        resetTimer()
         
         let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
+        resetTimer()
         
-        historyManager.addSession(type: currentType, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
+        if actualTimeSpent < 60 {
+            return
+        }
+        
+        historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
     }
 }

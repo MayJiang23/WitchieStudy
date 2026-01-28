@@ -10,10 +10,10 @@ import SwiftData
 
 @main
 struct WithieStudyApp: App {
-
     var body: some Scene {
         WindowGroup {
-            TimerView()
+            ContentView()
         }
+        .modelContainer(for: [PastSession.self, SessionType.self])
     }
 }

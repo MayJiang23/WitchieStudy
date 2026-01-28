@@ -7,7 +7,7 @@ import Foundation
 import SwiftData
 
 @Model
-class SessionType {
+class SessionType: Identifiable {
     var id : UUID
     var title: String
     //var themeAnimation: ThemeAnimation

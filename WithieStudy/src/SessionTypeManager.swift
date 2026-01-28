@@ -4,8 +4,14 @@
 //
 //
 import Foundation
+import SwiftData
 
 class SessionTypeManager {
+    var modelContext: ModelContext
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
     var sessionTypes: [SessionType] = [
         SessionType(title: "Study"),
         SessionType(title: "Work")

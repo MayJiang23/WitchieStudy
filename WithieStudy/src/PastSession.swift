@@ -7,7 +7,7 @@ import SwiftData
 import Foundation
 
 @Model
-class PastSession {
+class PastSession: Identifiable {
     var id: UUID
     var type: SessionType
     var duration: TimeInterval
