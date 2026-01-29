@@ -30,7 +30,7 @@ struct SessionHistoryView: View {
                             Text(summary.type)
                                 .font(.headline)
                             Spacer()
-                            Text("\(Int(summary.total / 60)) min")
+                            Text("\(Int(summary.total) / 60) mins")
                                 .fontWeight(.bold)
                         }
                     }
@@ -41,7 +41,7 @@ struct SessionHistoryView: View {
                         HStack {
                             Text(session.type.title)
                             Spacer()
-                            Text("\(Int(session.duration)) / 60 mins")
+                            Text("\(Int(session.duration) / 60) mins")
                                 .foregroundColor(.secondary)
                         }
                         

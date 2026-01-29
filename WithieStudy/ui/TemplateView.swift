@@ -45,7 +45,8 @@ struct TimerView: View {
             if manager == nil {
                 manager = LiveSessionManager(
                     history: SessionHistoryManager(modelContext: modelContext),
-                    sessionTypes: SessionTypeManager(modelContext: modelContext)
+                    sessionTypes: SessionTypeManager(modelContext: modelContext),
+                    modelContext: modelContext
                 )
             }
         }

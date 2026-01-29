@@ -28,5 +28,12 @@ class SessionHistoryManager {
             session.notes = newNotes
         }
     }
+    
+    func deleteAll() {
+        do {
+            try modelContext.delete(model: PastSession.self)
+        } catch {
+        }
+    }
 }
 
