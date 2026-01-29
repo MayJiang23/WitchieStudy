@@ -1,8 +1,14 @@
-//
-//  LiveSessionManager.swift
-//  WithieStudy
-//
-//
+///
+/// LiveSessionManager
+///
+/// - Property:
+///     - modelContext
+///     - isActive: If a timer is counting down
+///     - secondsRemain: A copy of the time remain
+///     - currentSession
+///     - historyManager: Adds finished session to the history
+///     - sessionTypeManager: Gets session type for session configuration.
+///
 import Foundation
 import Combine
 import SwiftData
@@ -28,20 +34,26 @@ class LiveSessionManager {
         
         timer.$secondsRemain
             .receive(on: RunLoop.main)
-            .assign(to: \.secondsRemain, on: self)
+            .sink {
+                self.secondsRemain = $0
+                self.currentSession.secondsRemain = $0
+                self.save()
+            }
             .store(in: &cancellables)
         
         fetchLiveSession()
     }
     
     func editSession(type: SessionType, durationInSeconds: Int) {
-        currentSession.set(startTime: nil, type: type, durationInSeconds: durationInSeconds)
+        currentSession.set(startTime: nil, type: type, durationInSeconds: durationInSeconds, secondsRemain: durationInSeconds)
         timer.setTimer(newTime: durationInSeconds)
+        secondsRemain = durationInSeconds
         save()
     }
     
     func start() {
-        currentSession.set(startTime: Date.now, type: nil, durationInSeconds: nil)
+        print("Test")
+        currentSession.set(startTime: Date.now, type: nil, durationInSeconds: nil, secondsRemain: secondsRemain)
         isActive = true
         timer.resume()
     }
@@ -55,17 +67,17 @@ class LiveSessionManager {
         timer.setTimer(newTime: currentSession.durationInSeconds)
     }
     
-    func finish() -> Void {
+    func finish() {
         pauseTimer()
         
         let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
         resetTimer()
         
-        if actualTimeSpent < 60 {
-            return
-        }
+        if actualTimeSpent < 60 { return }
         
         historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
+        
+        secondsRemain = currentSession.durationInSeconds
     }
     
     private func fetchLiveSession() {
@@ -73,14 +85,20 @@ class LiveSessionManager {
         
         do {
             let sessions = try modelContext.fetch(descriptor)
+            print(sessions)
             if let existingSession = sessions.first {
+                print("Found a session: ", existingSession)
                 currentSession = existingSession
                 timer.setTimer(newTime: existingSession.durationInSeconds)
+                self.secondsRemain = currentSession.secondsRemain
             } else {
-                let newSession = ProductivitySession(startTime: Date.now, durationInSeconds: 1500, type: SessionType(title: "Work"))
-                
+                let newSession = ProductivitySession(startTime: Date.now, durationInSeconds: 1500, type: SessionType(title: "Work"), secondsRemain: 1500)
+                print("Insert new one")
                 modelContext.insert(newSession)
-                currentSession = newSession        }
+                save()
+                currentSession = newSession
+                secondsRemain = currentSession.secondsRemain
+            }
         } catch {
             print("Fetch failed: \(error.localizedDescription)")
         }

@@ -25,7 +25,6 @@ class SessionTimer {
             } else {
                 self.finish()
             }
-                
         }
     }
     
