@@ -23,9 +23,8 @@ class SessionTimer {
             if self.secondsRemain > 0 {
                 self.secondsRemain -= 1
             } else {
-                self.finish()
+                self.pause()
             }
-                
         }
     }
     
@@ -36,10 +35,6 @@ class SessionTimer {
     
     func setTimer(newTime: Int) {
         secondsRemain = newTime
-    }
-    
-    func finish() {
-        pause()
     }
 }
 
