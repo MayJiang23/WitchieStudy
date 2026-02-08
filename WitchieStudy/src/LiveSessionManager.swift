@@ -28,6 +28,12 @@ class LiveSessionManager {
     var historyManager: SessionHistoryManager
     var sessionTypeManager: SessionTypeManager
     
+    var timeFormatted: String {
+        let minutes = self.secondsRemain / 60
+        let seconds = self.secondsRemain % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
     
     init(history: SessionHistoryManager, sessionTypes: SessionTypeManager, modelContext: ModelContext) {
         self.historyManager = history
@@ -38,6 +44,7 @@ class LiveSessionManager {
             .receive(on: RunLoop.main)
             .sink { [weak self] newValue in
                 guard let self = self else { return }
+                print(newValue)
                 self.secondsRemain = newValue
                 self.currentSession.secondsRemain = newValue
                 self.currentSession.lastHeartbeat = Date.now
@@ -97,22 +104,25 @@ class LiveSessionManager {
             if let existingSession = sessions.first {
                 self.currentSession = existingSession
                 
-                if let heartbeat = existingSession.lastHeartbeat {
+                if isActive, let heartbeat = existingSession.lastHeartbeat {
+                    
                     let timeAway = Date.now.timeIntervalSince(heartbeat)
                     
                     let newRemain = existingSession.secondsRemain - Int(timeAway)
                     
                     self.secondsRemain = max(0, newRemain)
-                    print("Found session and getting seconds remain: ", newRemain)
                     timer.setTimer(newTime: self.secondsRemain)
                     
                     if self.secondsRemain == 0 {
                         pauseTimer()
                     }
                 } else {
-                    self.timer.setTimer(newTime: existingSession.durationInSeconds)
+                    self.timer.setTimer(newTime: existingSession.secondsRemain)
                     self.secondsRemain = currentSession.secondsRemain
                 }
+                
+                print("Heartbeat: ", currentSession.lastHeartbeat)
+                print(currentSession.secondsRemain)
             }
         } catch {
             print("Fetch failed: \(error.localizedDescription)")
