@@ -44,7 +44,6 @@ class LiveSessionManager {
             .receive(on: RunLoop.main)
             .sink { [weak self] newValue in
                 guard let self = self else { return }
-                print(newValue)
                 self.secondsRemain = newValue
                 self.currentSession.secondsRemain = newValue
                 self.currentSession.lastHeartbeat = Date.now
@@ -52,21 +51,33 @@ class LiveSessionManager {
             .store(in: &cancellables)
     }
     
-    func editSession(type: SessionType, durationInSeconds: Int) {
-        currentSession.set(startTime: nil, type: type, durationInSeconds: durationInSeconds, secondsRemain: durationInSeconds, lastHeartbeat: nil)
-        timer.setTimer(newTime: durationInSeconds)
-        secondsRemain = durationInSeconds
+    func editSession(type: SessionType?, durationInSeconds: Int?) {
+        if let type {
+            currentSession.set(startTime: nil, type: type, durationInSeconds: nil, secondsRemain: nil, lastHeartbeat: nil)
+        }
+        
+        if let durationInSeconds {
+            currentSession.set(startTime: nil, type: nil, durationInSeconds: durationInSeconds, secondsRemain: durationInSeconds, lastHeartbeat: nil)
+            timer.setTimer(newTime: durationInSeconds)
+            secondsRemain = durationInSeconds
+        }
         save()
     }
     
     func start() {
         currentSession.set(startTime: Date.now, type: nil, durationInSeconds: nil, secondsRemain: secondsRemain, lastHeartbeat: Date.now)
         isActive = true
+        currentSession.started = true
         timer.resume()
         save()
     }
     
-    func pauseTimer() {
+    func resume() {
+        isActive = true
+        timer.resume()
+    }
+    
+    func pause() {
         isActive = false
         timer.pause()
         save()
@@ -77,11 +88,11 @@ class LiveSessionManager {
     }
     
     func finish() {
-        pauseTimer()
-        
+        pause()
+        isActive = false
         let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
         resetTimer()
-        
+        currentSession.started = false
         if actualTimeSpent < 60 { return }
         
         historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
@@ -104,25 +115,8 @@ class LiveSessionManager {
             if let existingSession = sessions.first {
                 self.currentSession = existingSession
                 
-                if isActive, let heartbeat = existingSession.lastHeartbeat {
-                    
-                    let timeAway = Date.now.timeIntervalSince(heartbeat)
-                    
-                    let newRemain = existingSession.secondsRemain - Int(timeAway)
-                    
-                    self.secondsRemain = max(0, newRemain)
-                    timer.setTimer(newTime: self.secondsRemain)
-                    
-                    if self.secondsRemain == 0 {
-                        pauseTimer()
-                    }
-                } else {
-                    self.timer.setTimer(newTime: existingSession.secondsRemain)
-                    self.secondsRemain = currentSession.secondsRemain
-                }
-                
-                print("Heartbeat: ", currentSession.lastHeartbeat)
-                print(currentSession.secondsRemain)
+                self.timer.setTimer(newTime: existingSession.secondsRemain)
+                self.secondsRemain = currentSession.secondsRemain
             }
         } catch {
             print("Fetch failed: \(error.localizedDescription)")

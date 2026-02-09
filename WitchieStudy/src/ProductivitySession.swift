@@ -14,6 +14,7 @@ class ProductivitySession: Identifiable {
     var type: SessionType
     var secondsRemain: Int
     var lastHeartbeat: Date?
+    var started: Bool = false
     
     init(startTime: Date, durationInSeconds: Int, type: SessionType, secondsRemain: Int) {
         self.id = UUID()

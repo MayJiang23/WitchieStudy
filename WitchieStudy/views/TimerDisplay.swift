@@ -29,10 +29,12 @@ struct TimerDisplay: View {
             }
             .frame(width: 250, height: 250)
             .onTapGesture {
-                showSessionEdit = true
+                if !manager.isActive {
+                    showSessionEdit = true
+                }
             }
             .sheet(isPresented: $showSessionEdit) {
-                EditLiveSessionModal()
+                EditLiveSessionModal(manager: manager)
             }
         }
     }

@@ -4,17 +4,20 @@ import SwiftData
 struct LiveSessionView: View {
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.modelContext) var modelContext
-    @State private var manager: LiveSessionManager? // Back to Optional
+    @State private var manager: LiveSessionManager? 
 
     var body: some View {
-        // We wrap the ENTIRE UI in this 'if let'
         Group {
             if let manager {
                 TimerDisplay(manager: manager)
                     
                 HStack(spacing: 30) {
                     if manager.isActive {
-                        Button("Pause") { manager.pauseTimer() }
+                        Button("Pause") { manager.pause() }
+                    } else if manager.currentSession.started {
+                        Button("Resume") {
+                            manager.resume()
+                        }
                     } else {
                         Button("Start") { manager.start() }
                     }
