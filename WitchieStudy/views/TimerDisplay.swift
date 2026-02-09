@@ -25,11 +25,11 @@ struct TimerDisplay: View {
                     .animation(.easeInOut, value: manager.secondsRemain)
                     
                 Text(manager.timeFormatted)
-                        .font(.system(size: 60, weight: .bold, design: .monospaced))
+                        .font(.system(size: 40, weight: .bold, design: .monospaced))
             }
-            .frame(width: 250, height: 250)
+            .frame(width: 180, height: 150)
             .onTapGesture {
-                if !manager.isActive {
+                if !manager.currentSession.started {
                     showSessionEdit = true
                 }
             }

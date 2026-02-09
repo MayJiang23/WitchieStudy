@@ -1,8 +1,7 @@
 import SwiftUI
 
-// MARK: - Sub-view to simplify the main body
 struct SessionTypeRow: View {
-    let type: SessionType // Replace with your actual Type name if different
+    let type: SessionType
     let isSelected: Bool
     let action: () -> Void
     
