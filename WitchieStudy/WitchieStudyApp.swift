@@ -1,10 +1,3 @@
-//
-//  WithieStudyApp.swift
-//  WithieStudy
-//
-//  Created by Pitten Pant on 1/26/26.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -13,33 +6,18 @@ struct WithieStudyApp: App  {
     let container: ModelContainer
     init() {
         do {
-            container = try ModelContainer(for: ProductivitySession.self)
-            bootstrapSession()
+            container = try ModelContainer(for:  ProductivitySession.self, SessionType.self)
+            SessionInitializer.initialize(container: container)
         } catch {
             fatalError("Failed to initialize SwiftData")
-        }
-    }
-    
-    private func bootstrapSession() {
-        let context = container.mainContext
-        let descriptor = FetchDescriptor<ProductivitySession>()
-        
-        if let count = try? context.fetchCount(descriptor), count == 0 {
-            let initialSession = ProductivitySession(
-                startTime: Date.now,
-                durationInSeconds: 1500,
-                type: SessionType(title: "Work"),
-                secondsRemain: 1500
-            )
-            context.insert(initialSession)
-            try? context.save()
         }
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .background(Color("AccentColor"))
         }
-        .modelContainer(for: [PastSession.self, SessionType.self])
+        .modelContainer(for: [PastSession.self, SessionType.self, ProductivitySession.self])
     }
 }

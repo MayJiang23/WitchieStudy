@@ -1,0 +1,19 @@
+import SwiftData
+import Foundation
+
+@Model
+class PastSession: Identifiable {
+    var type: SessionType
+    var duration: TimeInterval
+    var dateCompleted: Date
+    var notes: String
+    
+    init(type: SessionType, duration: TimeInterval, dateCompleted: Date, notes: String = "Time flies by...")
+    {
+        self.type = type
+        self.duration = duration
+        self.dateCompleted = dateCompleted
+        self.notes = notes
+    }
+}
+

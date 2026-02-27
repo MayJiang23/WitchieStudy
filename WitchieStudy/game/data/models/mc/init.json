@@ -1,0 +1,18 @@
+{
+    "head": {
+        "name": "0",
+        "z": 2
+    },
+    "backhair": {
+        "name": "0",
+        "z": 1
+    },
+    "fronthair": {
+        "name": "0",
+        "z": 4
+    },
+    "eyes": {
+        "name": "0",
+        "z": 3
+    }
+}
