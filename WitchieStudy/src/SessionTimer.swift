@@ -11,11 +11,6 @@ class SessionTimer {
     private var timer: Timer?
     
     var isActive = false
-    var timeFormatted: String {
-        let minutes = self.secondsRemain / 60
-        let seconds = self.secondsRemain % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
     
     func resume() {
         isActive = true
@@ -23,9 +18,8 @@ class SessionTimer {
             if self.secondsRemain > 0 {
                 self.secondsRemain -= 1
             } else {
-                self.finish()
+                self.pause()
             }
-                
         }
     }
     
@@ -36,10 +30,6 @@ class SessionTimer {
     
     func setTimer(newTime: Int) {
         secondsRemain = newTime
-    }
-    
-    func finish() {
-        pause()
     }
 }
 

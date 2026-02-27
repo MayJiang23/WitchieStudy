@@ -9,7 +9,7 @@ import SwiftData
 
 struct ContentView: View {
     var body: some View {
-        TimerView()
+        LiveSessionView()
         SessionHistoryView()
     }
 }

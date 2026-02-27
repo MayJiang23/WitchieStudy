@@ -24,25 +24,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D716F9D2F27E77100B3C5D5 /* WithieStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WithieStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D716FAC2F27E77300B3C5D5 /* WithieStudyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WithieStudyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D716FB62F27E77300B3C5D5 /* WithieStudyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WithieStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D716F9D2F27E77100B3C5D5 /* WitchieStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WitchieStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D716FAC2F27E77300B3C5D5 /* WitchieStudyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WitchieStudyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D716FB62F27E77300B3C5D5 /* WitchieStudyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WitchieStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3D716F9F2F27E77100B3C5D5 /* WithieStudy */ = {
+		3D716F9F2F27E77100B3C5D5 /* WitchieStudy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WithieStudy;
+			path = WitchieStudy;
 			sourceTree = "<group>";
 		};
-		3D716FAF2F27E77300B3C5D5 /* WithieStudyTests */ = {
+		3D716FAF2F27E77300B3C5D5 /* WitchieStudyTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WithieStudyTests;
+			path = WitchieStudyTests;
 			sourceTree = "<group>";
 		};
-		3D716FB92F27E77300B3C5D5 /* WithieStudyUITests */ = {
+		3D716FB92F27E77300B3C5D5 /* WitchieStudyUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WithieStudyUITests;
+			path = WitchieStudyUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		3D716F942F27E77100B3C5D5 = {
 			isa = PBXGroup;
 			children = (
-				3D716F9F2F27E77100B3C5D5 /* WithieStudy */,
-				3D716FAF2F27E77300B3C5D5 /* WithieStudyTests */,
-				3D716FB92F27E77300B3C5D5 /* WithieStudyUITests */,
+				3D716F9F2F27E77100B3C5D5 /* WitchieStudy */,
+				3D716FAF2F27E77300B3C5D5 /* WitchieStudyTests */,
+				3D716FB92F27E77300B3C5D5 /* WitchieStudyUITests */,
 				3D716F9E2F27E77100B3C5D5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		3D716F9E2F27E77100B3C5D5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D716F9D2F27E77100B3C5D5 /* WithieStudy.app */,
-				3D716FAC2F27E77300B3C5D5 /* WithieStudyTests.xctest */,
-				3D716FB62F27E77300B3C5D5 /* WithieStudyUITests.xctest */,
+				3D716F9D2F27E77100B3C5D5 /* WitchieStudy.app */,
+				3D716FAC2F27E77300B3C5D5 /* WitchieStudyTests.xctest */,
+				3D716FB62F27E77300B3C5D5 /* WitchieStudyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3D716F9C2F27E77100B3C5D5 /* WithieStudy */ = {
+		3D716F9C2F27E77100B3C5D5 /* WitchieStudy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D716FC02F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WithieStudy" */;
+			buildConfigurationList = 3D716FC02F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WitchieStudy" */;
 			buildPhases = (
 				3D716F992F27E77100B3C5D5 /* Sources */,
 				3D716F9A2F27E77100B3C5D5 /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				3D716F9F2F27E77100B3C5D5 /* WithieStudy */,
+				3D716F9F2F27E77100B3C5D5 /* WitchieStudy */,
 			);
-			name = WithieStudy;
+			name = WitchieStudy;
 			packageProductDependencies = (
 			);
 			productName = WithieStudy;
-			productReference = 3D716F9D2F27E77100B3C5D5 /* WithieStudy.app */;
+			productReference = 3D716F9D2F27E77100B3C5D5 /* WitchieStudy.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3D716FAB2F27E77300B3C5D5 /* WithieStudyTests */ = {
+		3D716FAB2F27E77300B3C5D5 /* WitchieStudyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D716FC32F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WithieStudyTests" */;
+			buildConfigurationList = 3D716FC32F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WitchieStudyTests" */;
 			buildPhases = (
 				3D716FA82F27E77300B3C5D5 /* Sources */,
 				3D716FA92F27E77300B3C5D5 /* Frameworks */,
@@ -131,18 +131,18 @@
 				3D716FAE2F27E77300B3C5D5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				3D716FAF2F27E77300B3C5D5 /* WithieStudyTests */,
+				3D716FAF2F27E77300B3C5D5 /* WitchieStudyTests */,
 			);
-			name = WithieStudyTests;
+			name = WitchieStudyTests;
 			packageProductDependencies = (
 			);
 			productName = WithieStudyTests;
-			productReference = 3D716FAC2F27E77300B3C5D5 /* WithieStudyTests.xctest */;
+			productReference = 3D716FAC2F27E77300B3C5D5 /* WitchieStudyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3D716FB52F27E77300B3C5D5 /* WithieStudyUITests */ = {
+		3D716FB52F27E77300B3C5D5 /* WitchieStudyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D716FC62F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WithieStudyUITests" */;
+			buildConfigurationList = 3D716FC62F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WitchieStudyUITests" */;
 			buildPhases = (
 				3D716FB22F27E77300B3C5D5 /* Sources */,
 				3D716FB32F27E77300B3C5D5 /* Frameworks */,
@@ -154,13 +154,13 @@
 				3D716FB82F27E77300B3C5D5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				3D716FB92F27E77300B3C5D5 /* WithieStudyUITests */,
+				3D716FB92F27E77300B3C5D5 /* WitchieStudyUITests */,
 			);
-			name = WithieStudyUITests;
+			name = WitchieStudyUITests;
 			packageProductDependencies = (
 			);
 			productName = WithieStudyUITests;
-			productReference = 3D716FB62F27E77300B3C5D5 /* WithieStudyUITests.xctest */;
+			productReference = 3D716FB62F27E77300B3C5D5 /* WitchieStudyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3D716F982F27E77100B3C5D5 /* Build configuration list for PBXProject "WithieStudy" */;
+			buildConfigurationList = 3D716F982F27E77100B3C5D5 /* Build configuration list for PBXProject "WitchieStudy" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3D716F9C2F27E77100B3C5D5 /* WithieStudy */,
-				3D716FAB2F27E77300B3C5D5 /* WithieStudyTests */,
-				3D716FB52F27E77300B3C5D5 /* WithieStudyUITests */,
+				3D716F9C2F27E77100B3C5D5 /* WitchieStudy */,
+				3D716FAB2F27E77300B3C5D5 /* WitchieStudyTests */,
+				3D716FB52F27E77300B3C5D5 /* WitchieStudyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		3D716FAE2F27E77300B3C5D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3D716F9C2F27E77100B3C5D5 /* WithieStudy */;
+			target = 3D716F9C2F27E77100B3C5D5 /* WitchieStudy */;
 			targetProxy = 3D716FAD2F27E77300B3C5D5 /* PBXContainerItemProxy */;
 		};
 		3D716FB82F27E77300B3C5D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3D716F9C2F27E77100B3C5D5 /* WithieStudy */;
+			target = 3D716F9C2F27E77100B3C5D5 /* WitchieStudy */;
 			targetProxy = 3D716FB72F27E77300B3C5D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -398,6 +398,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WitchieStudy;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -413,7 +414,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = withiestudy23.WithieStudy;
+				PRODUCT_BUNDLE_IDENTIFIER = witchiestudy23.WitchieStudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -442,6 +443,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WitchieStudy;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -457,7 +459,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = withiestudy23.WithieStudy;
+				PRODUCT_BUNDLE_IDENTIFIER = witchiestudy23.WitchieStudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -484,7 +486,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = withiestudy23.WithieStudyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = witchiestudy23.WitchieStudyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -510,7 +512,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = withiestudy23.WithieStudyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = witchiestudy23.WitchieStudyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -535,7 +537,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = withiestudy23.WithieStudyUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = witchiestudy23.WitchieStudyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -560,7 +562,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = withiestudy23.WithieStudyUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = witchiestudy23.WitchieStudyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -578,7 +580,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D716F982F27E77100B3C5D5 /* Build configuration list for PBXProject "WithieStudy" */ = {
+		3D716F982F27E77100B3C5D5 /* Build configuration list for PBXProject "WitchieStudy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D716FBE2F27E77300B3C5D5 /* Debug */,
@@ -587,7 +589,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D716FC02F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WithieStudy" */ = {
+		3D716FC02F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WitchieStudy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D716FC12F27E77300B3C5D5 /* Debug */,
@@ -596,7 +598,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D716FC32F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WithieStudyTests" */ = {
+		3D716FC32F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WitchieStudyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D716FC42F27E77300B3C5D5 /* Debug */,
@@ -605,7 +607,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D716FC62F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WithieStudyUITests" */ = {
+		3D716FC62F27E77300B3C5D5 /* Build configuration list for PBXNativeTarget "WitchieStudyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D716FC72F27E77300B3C5D5 /* Debug */,

@@ -9,6 +9,12 @@ import SwiftData
 class SessionTypeManager {
     var modelContext: ModelContext
     
+    var allTypes: Array<SessionType> {
+        let descriptor = FetchDescriptor<SessionType>()
+        let types = try! modelContext.fetch(descriptor)
+        return types
+    }
+    
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
