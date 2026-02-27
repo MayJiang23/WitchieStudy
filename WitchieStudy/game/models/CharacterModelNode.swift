@@ -29,6 +29,8 @@ class CharacterModelNode: SKNode {
             //print("exiting here")
             return
         }
+        
+        var actions: [SKNode: [SKAction]] = [:]
 
         for track in animation.tracks {
             let targets: [ModelComponentNode]
@@ -47,8 +49,17 @@ class CharacterModelNode: SKNode {
                 //print(context)
                 let action = track.action(context)
                 //print(action)
-                targetNode.run(action, withKey: animationName)
+                if actions[targetNode] == nil {
+                    actions[targetNode] = []
+                }
+                actions[targetNode]?.append(action)
             }
+        }
+        
+        
+        for (node, value) in actions {
+            let combined = SKAction.group(value)
+            node.run(combined, withKey: animationName)
         }
     }
     
