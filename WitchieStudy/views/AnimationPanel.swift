@@ -4,7 +4,7 @@ import SpriteKit
 struct AnimationPanel: View {
     var scene: SKScene {
         let scene = AnimationSceneContainer()
-        scene.size = CGSize(width: 256, height: 288)
+        scene.size = CGSize(width: 512, height: 576)
         scene.scaleMode = .aspectFit
         scene.backgroundColor = .clear
         return scene
@@ -12,6 +12,6 @@ struct AnimationPanel: View {
 
     var body: some View {
         SpriteView(scene: scene, options: [.allowsTransparency])
-            .frame(width: 256, height: 288)
+            .frame(width: 320, height: 360)
     }
 }

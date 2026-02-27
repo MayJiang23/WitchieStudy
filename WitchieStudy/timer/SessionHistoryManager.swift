@@ -1,14 +1,10 @@
-//
-//  SessionManager.swift
-//  WithieStudy
-//
-//
 import Foundation
 import SwiftData
 import _SwiftData_SwiftUI
 
 class SessionHistoryManager {
     var modelContext: ModelContext
+
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
@@ -19,7 +15,7 @@ class SessionHistoryManager {
         modelContext.insert(session)
     }
     
-    func editSessionNote(id: UUID, newNotes: String) {
+    func editSessionNote(id: PersistentIdentifier, newNotes: String) {
         let descriptor = FetchDescriptor<PastSession>(
             predicate: #Predicate { $0.id == id }
         )
@@ -29,7 +25,23 @@ class SessionHistoryManager {
         }
     }
     
-    func deleteAll() {
+    func fetchPastSessions(type: SessionType?) -> Array<PastSession> {
+        var descriptor = FetchDescriptor<PastSession>()
+        
+        if let type {
+            let typeId = type.id
+            descriptor = FetchDescriptor<PastSession>(
+                predicate: #Predicate { $0.type.id == typeId }
+            )
+        }
+        
+        if let sessions = try? modelContext.fetch(descriptor) {
+            return sessions
+        }
+        return []
+    }
+    
+    private func deleteAll() {
         do {
             try modelContext.delete(model: PastSession.self)
         } catch {

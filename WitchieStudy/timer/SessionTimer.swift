@@ -1,8 +1,3 @@
-//
-//  SessionTimer.swift
-//  WithieStudy
-//
-//
 import Foundation
 import Combine
 

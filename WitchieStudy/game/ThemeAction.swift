@@ -1,17 +1,17 @@
-//
-//  ThemeAnimation.swift
-//  WithieStudy
-//
-//
 import Foundation
 
-class ThemeAction: Identifiable {
-    var id: UUID
-    var statType: StatType
+enum ThemeAction: String, Codable, CaseIterable, Identifiable {
+    case work = "Work"
+    case study = "Study"
+    case exercise = "Exercise"
     
-    init(statType: StatType) {
-        self.id = UUID()
-        self.statType = statType
+    var statType: StatType {
+        switch self {
+        case .work: return .con
+        case .study: return .wis
+        case .exercise: return .str
+        }
     }
+    var id: String { self.rawValue }
 }
 

@@ -1,20 +1,16 @@
-//
-//  SessionType.swift
-//  WithieStudy
-//
-//
 import Foundation
 import SwiftData
 
 @Model
 class SessionType: Identifiable {
-    var id : UUID
-    var title: String
-    //var themeAnimation: ThemeAnimation
+    @Attribute var title: String
+    @Relationship(deleteRule: .cascade, inverse: \PastSession.type) var sessions: [PastSession]? = []
     
-    init(title: String) {
-        self.id = UUID()
+    var themeAction: ThemeAction
+    
+    init(title: String, themeAction: ThemeAction) {
         self.title = title
+        self.themeAction = themeAction
     }
 }
 

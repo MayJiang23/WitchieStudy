@@ -8,7 +8,6 @@ import SwiftData
 
 @Model
 class ProductivitySession: Identifiable {
-    var id: UUID
     var startTime: Date
     var durationInSeconds: Int
     var type: SessionType
@@ -17,7 +16,6 @@ class ProductivitySession: Identifiable {
     var started: Bool = false
     
     init(startTime: Date, durationInSeconds: Int, type: SessionType, secondsRemain: Int) {
-        self.id = UUID()
         self.type = type
         self.durationInSeconds = durationInSeconds
         self.startTime = startTime

@@ -91,9 +91,10 @@ class LiveSessionManager {
         pause()
         isActive = false
         let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
+        
         resetTimer()
         currentSession.started = false
-        if actualTimeSpent < 60 { return }
+        // if actualTimeSpent < 60 { return }
         
         historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
         
@@ -101,7 +102,6 @@ class LiveSessionManager {
     }
     
     func handleAppExit() {
-        print("Should be triggered here")
         currentSession.secondsRemain = self.secondsRemain
         currentSession.lastHeartbeat = Date.now
         save()
@@ -125,5 +125,12 @@ class LiveSessionManager {
     
     private func save() {
         try? modelContext.save()
+    }
+    
+    private func deleteAll() {
+        do {
+            try modelContext.delete(model: ProductivitySession.self)
+        } catch {
+        }
     }
 }

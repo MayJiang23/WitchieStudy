@@ -1,8 +1,3 @@
-//
-//  SessionTypeManager.swift
-//  WithieStudy
-//
-//
 import Foundation
 import SwiftData
 
@@ -18,23 +13,47 @@ class SessionTypeManager {
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
-    var sessionTypes: [SessionType] = [
-        SessionType(title: "Study"),
-        SessionType(title: "Work")
-    ]
     
-    func addType(name: String) -> Void {
-        if !hasType(name: name) {
-            sessionTypes.append(SessionType(title: name))
+    func addType(title: String, themeAction: ThemeAction) -> Bool {
+        let predicate = #Predicate<SessionType> {
+            $0.title == title
+        }
+        
+        if !hasType(predicate: predicate) {
+            let newType = SessionType(title: title, themeAction: themeAction)
+            modelContext.insert(newType)
+            try? modelContext.save()
+            return true
+        }
+        return false
+    }
+    
+    func removeType(id: PersistentIdentifier) {
+        let predicate = #Predicate<SessionType> {
+            $0.id == id
+        }
+        
+        if hasType(predicate: predicate) {
+            try? modelContext.delete(model: SessionType.self, where: predicate)
+            try? modelContext.save()
         }
     }
     
-    func removeType(idx: Int) -> Void {
-        sessionTypes.remove(at: idx)
+    func hasType(predicate: Predicate<SessionType>) -> Bool {
+        let descriptor = FetchDescriptor<SessionType>(
+            predicate: predicate
+        )
+        
+        return ((try? modelContext.fetchCount(descriptor)) != 0)
     }
     
-    func hasType(name: String) -> Bool {
-        return sessionTypes.contains { $0.title == name }
+    private func deleteAll() {
+        do {
+            try modelContext.delete(model: SessionType.self)
+            try? modelContext.save()
+        } catch {
+        }
     }
+
 }
 
