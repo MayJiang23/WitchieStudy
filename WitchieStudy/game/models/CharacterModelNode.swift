@@ -1,4 +1,5 @@
 import SpriteKit
+import SwiftUI
 
 class CharacterModelNode: SKNode {
     private var componentNodes: [String: ModelComponentNode] = [:]
@@ -30,7 +31,7 @@ class CharacterModelNode: SKNode {
             return
         }
         
-        var actions: [SKNode: [SKAction]] = [:]
+        var actions: [SKSpriteNode: [SKAction]] = [:]
 
         for track in animation.tracks {
             let targets: [ModelComponentNode]
