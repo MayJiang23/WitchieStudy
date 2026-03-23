@@ -1,13 +1,18 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 @main
 struct WithieStudyApp: App  {
     let container: ModelContainer
+    @State private var appState: AppState
+    
     init() {
         do {
-            container = try ModelContainer(for:  ProductivitySession.self, SessionType.self)
+            container = try ModelContainer(for:  ProductivitySession.self, SessionType.self, Inventory.self)
+            InventoryInitializer.initialize(container: container)
             SessionInitializer.initialize(container: container)
+            appState = AppState(modelContext: container.mainContext)
         } catch {
             fatalError("Failed to initialize SwiftData")
         }
@@ -15,9 +20,10 @@ struct WithieStudyApp: App  {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .background(Color("AccentColor"))
+                .environment(appState)
         }
-        .modelContainer(for: [PastSession.self, SessionType.self, ProductivitySession.self])
+        .modelContainer(for: [PastSession.self, SessionType.self, ProductivitySession.self, Inventory.self])
     }
 }
