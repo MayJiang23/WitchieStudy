@@ -1,8 +1,3 @@
-//
-//  ProductivitySession.swift
-//  WithieStudy
-//
-//
 import Foundation
 import SwiftData
 

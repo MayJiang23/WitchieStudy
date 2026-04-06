@@ -28,6 +28,8 @@ class LiveSessionManager {
     var historyManager: SessionHistoryManager
     var sessionTypeManager: SessionTypeManager
     
+    var onTick: (() -> Void)?
+    
     var timeFormatted: String {
         let minutes = self.secondsRemain / 60
         let seconds = self.secondsRemain % 60
@@ -47,6 +49,7 @@ class LiveSessionManager {
                 self.secondsRemain = newValue
                 self.currentSession.secondsRemain = newValue
                 self.currentSession.lastHeartbeat = Date.now
+                self.timerTicked()
             }
             .store(in: &cancellables)
     }
@@ -105,6 +108,12 @@ class LiveSessionManager {
         currentSession.secondsRemain = self.secondsRemain
         currentSession.lastHeartbeat = Date.now
         save()
+    }
+    
+    private func timerTicked() {
+        if timer.elapsed % 3 == 0 && timer.elapsed != 0 { 
+            onTick?()
+        }
     }
     
     private func fetchLiveSession() {

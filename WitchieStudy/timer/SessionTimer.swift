@@ -3,6 +3,8 @@ import Combine
 
 class SessionTimer {
     @Published var secondsRemain: Int = 1500
+    @Published var elapsed: Int = 0
+
     private var timer: Timer?
     
     var isActive = false
@@ -12,6 +14,7 @@ class SessionTimer {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             if self.secondsRemain > 0 {
                 self.secondsRemain -= 1
+                self.elapsed += 1
             } else {
                 self.pause()
             }
@@ -25,6 +28,7 @@ class SessionTimer {
     
     func setTimer(newTime: Int) {
         secondsRemain = newTime
+        elapsed = 0
     }
 }
 
