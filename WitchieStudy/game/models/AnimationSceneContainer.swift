@@ -8,12 +8,9 @@ class AnimationSceneContainer: SKScene {
         character.position = .zero
         addChild(character)
         
-        let idleTrack = IdleAnimationTrack()
-        let blinkTrack = BlinkAnimationTrack()
-        let idleMovementTrack = IdleObjectMovementTrack()
-        let animation = Animation(tracks: [idleTrack, blinkTrack, idleMovementTrack])
         
-        let library = AnimationLibrary(animations: ["idle": animation], name: "default")
+        
+        let library = AnimationLibrary(animations: ["idle": Animation.idle], name: "default")
 
         character.setLibrary(library: library, name: "default")
 
