@@ -17,25 +17,23 @@ struct WardrobeView: View {
                 // Logic for layering sprites would go here
             }
 
-            Picker("Category", selection: $selectedCategory) {
-                ForEach(WardrobeCategory.allCases, id: \.self) { cat in
-                    Text(cat.rawValue).tag(cat)
-                }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
+            CategoryPicker()
+        }
+    }
+}
 
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
-                    ForEach(manager.availableItems.filter { $0.category == selectedCategory }) { item in
-                        ItemCard(item: item, isEquipped: manager.equippedItems[item.category] == item)
-                            .onTapGesture {
-                                manager.equip(item)
-                            }
-                    }
-                }
-                .padding()
+struct WardrobeItemScrollView: View {
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
+                //ForEach(manager.availableItems.filter { $0.category == selectedCategory }) { item in
+                //    ItemCard(item: item, isEquipped: manager.equippedItems[item.category] == item)
+                //        .onTapGesture {
+                //            manager.equip(item)
+                //        }
+                //}
             }
+            .padding()
         }
     }
 }
@@ -56,6 +54,20 @@ struct StatBadge: View {
         .padding(8)
         .background(color.opacity(0.1))
         .cornerRadius(10)
+    }
+}
+
+struct CategoryPicker: View {
+    @State private var selectedCategory: WardrobeCategory = .tops
+
+    var body: some View {
+        Picker("Category", selection: $selectedCategory) {
+            ForEach(WardrobeCategory.allCases, id: \.self) { cat in
+                Text(cat.rawValue).tag(cat)
+            }
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
     }
 }
 
