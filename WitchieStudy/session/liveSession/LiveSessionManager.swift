@@ -21,8 +21,8 @@ class LiveSessionManager {
     var modelContext: ModelContext
     var isActive: Bool = false
     var secondsRemain: Int = 1500
-    var currentSession: ProductivitySession!
     var lastHeartbeat: Date?
+    var currentSession: ProductivitySession!
     
     var timer: SessionTimer = SessionTimer()
     var historyManager: SessionHistoryManager
@@ -110,6 +110,9 @@ class LiveSessionManager {
         save()
     }
     
+    
+    
+    /** --- PRIVATE FUNCS  --- */
     private func timerTicked() {
         if timer.elapsed % 3 == 0 && timer.elapsed != 0 { 
             onTick?()
