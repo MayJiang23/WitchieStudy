@@ -18,20 +18,24 @@ struct WardrobeView: View {
             }
 
             CategoryPicker()
+            WardrobeItemScrollView(manager: manager, selectedCategory: selectedCategory)
         }
     }
 }
 
 struct WardrobeItemScrollView: View {
+    var manager: WardrobeManager
+    var selectedCategory: WardrobeCategory
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
-                //ForEach(manager.availableItems.filter { $0.category == selectedCategory }) { item in
-                //    ItemCard(item: item, isEquipped: manager.equippedItems[item.category] == item)
-                //        .onTapGesture {
-                //            manager.equip(item)
-                //        }
-                //}
+                let filteredItems = manager.wardrobe[selectedCategory]
+                ForEach(filteredItems!) { item in
+                    ItemCard(item: item, isEquipped: manager.equipped[selectedCategory] == item)
+                        .onTapGesture {
+                            manager.equip(item)
+                        }
+                }
             }
             .padding()
         }
