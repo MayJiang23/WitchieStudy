@@ -12,7 +12,7 @@ struct WithieStudyApp: App  {
             container = try ModelContainer(for:  ProductivitySession.self, SessionType.self, Inventory.self)
             InventoryInitializer.initialize(container: container)
             SessionInitializer.initialize(container: container)
-            appState = AppState(modelContext: container.mainContext)
+            _appState = State(initialValue: AppState(modelContext: container.mainContext))
         } catch {
             fatalError("Failed to initialize SwiftData")
         }
