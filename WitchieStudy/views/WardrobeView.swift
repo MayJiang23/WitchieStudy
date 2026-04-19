@@ -18,20 +18,23 @@ struct WardrobeView: View {
             }
 
             CategoryPicker()
+            WardrobeItemScrollView(manager: manager, selectedCategory: $selectedCategory)
         }
     }
 }
 
 struct WardrobeItemScrollView: View {
+    var manager: WardrobeManager
+    @Binding var selectedCategory: WardrobeCategory
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
-                //ForEach(manager.availableItems.filter { $0.category == selectedCategory }) { item in
-                //    ItemCard(item: item, isEquipped: manager.equippedItems[item.category] == item)
-                //        .onTapGesture {
-                //            manager.equip(item)
-                //        }
-                //}
+                ForEach(manager.wardrobe.filter { $0.category == $selectedCategory }) { item in
+                    ItemCard(item: item, isEquipped: manager.equipped[item.category] == item)
+                        .onTapGesture {
+                            manager.equip(item)
+                        }
+                }
             }
             .padding()
         }

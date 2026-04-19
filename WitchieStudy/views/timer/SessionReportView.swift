@@ -51,7 +51,7 @@ struct SessionReportView: View {
                             VStack {
                                 Image(systemName: "briefcase.fill")
                                     .foregroundColor(.yellow)
-                                Text(item).font(.caption2).foregroundColor(.white)
+                                Text(item.name).font(.caption2).foregroundColor(.white)
                             }
                             .frame(width: 60)
                         }
@@ -108,9 +108,9 @@ struct SessionReport_Previews: PreviewProvider {
             activityName: "Human History",
             durationMinutes: 45,
             statChange: 10,
-            characterName: "The Mentor",
-            characterQuote: "Your handwriting is improving, but you're still holding your pen like a magic wand. Fix your grip.",
-            itemsFound: ["Ink Pot", "Old Key"]
+            characterName: "Jibril",
+            characterQuote: "Placeholder text.",
+            itemsFound: [InventoryItem(id: UUID(), name: "Ink Pot", icon: "ink.fill")]
         ))
     }
 }
