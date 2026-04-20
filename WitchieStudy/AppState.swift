@@ -7,6 +7,7 @@ class AppState {
     var inventory: InventoryManager
     //var stats: StatManager
     var loot: LootManager
+    var report: SessionReportManager
     
     var modelContext: ModelContext
 
@@ -21,13 +22,17 @@ class AppState {
             modelContext: modelContext
         )
         self.loot = LootManager(inventory: newInventory)
+        self.report = SessionReportManager(modelContext: modelContext, nil)
         
         self.setupInternalConnections()
     }
     
     private func setupInternalConnections() {
-        sessionManager.onTick = { [weak self] in
-            self?.loot.attemptLoot()
+        self.sessionManager.onTick = { [weak self] in
+            if let item = self?.loot.attemptLoot() {
+                self?.inventory.addItem(item: item)
+                self?.report.addItem(item: item, source: ItemSource.loot(sessionID: nil))
+            }
         }
     }
 }

@@ -11,16 +11,17 @@ struct LootManager {
         InventoryItem(id: UUID(), name: "Gold Coin", icon: "bitcoinsign.circle")
     ]
     
-    func attemptLoot() {
+    func attemptLoot() -> InventoryItem? {
         let roll = Double.random(in: 0...1)
             
         if roll <= lootChance {
             if let newItem = possibleItems.randomElement() {
-                inventory.addItem(item: newItem)
-                print("triggered")
+                return newItem
             }
         } else {
             print("Luck wasn't on your side this time.")
+            return nil
         }
+        return nil
     }
 }
