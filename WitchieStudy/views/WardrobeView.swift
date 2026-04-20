@@ -25,6 +25,7 @@ struct WardrobeView: View {
 
 struct WardrobeItemScrollView: View {
     var manager: WardrobeManager
+
     var selectedCategory: WardrobeCategory
     var body: some View {
         ScrollView {

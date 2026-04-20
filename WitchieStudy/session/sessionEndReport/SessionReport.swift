@@ -5,19 +5,17 @@ import SwiftData
 class SessionReport: Identifiable {
     var activityName: String
     var durationMinutes: Int
+    var events: Array<ReportableEvent>
     
-    var statChange: Int
-    var characterName: String
-    var characterQuote: String
-    var itemsFound: [InventoryItem]
-    
-    init(activityName: String, durationMinutes: Int, statChange: Int, characterName: String, characterQuote: String, itemsFound: [InventoryItem]) {
+    init(activityName: String, durationMinutes: Int, evnts: Array<ReportableEvent> = []) {
         self.activityName = activityName
         self.durationMinutes = durationMinutes
         
-        self.statChange = statChange
-        self.characterName = characterName
-        self.characterQuote = characterQuote
-        self.itemsFound = itemsFound
+        self.events = events
     }
+    
+    func addEvents(_ events: Array<ReportableEvent>) {
+        self.events = self.events + events
+    }
+    
 }

@@ -15,13 +15,12 @@ class SessionReportManager {
     
     
     //Should change to add or update event later on
-    func addItem(item: InventoryItem, source: ItemSource) {
-        report.itemsFound.append(item)
+    func addEvents(events: Array<ReportableEvent>) {
+        report.addEvents(events)
     }
     
     private func fetchData() {
         let descriptor = FetchDescriptor<SessionReport>()
-        
         do {
             let report = try modelContext.fetch(descriptor)
             if let existingReport = report.first {
