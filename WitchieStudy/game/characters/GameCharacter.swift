@@ -17,7 +17,6 @@ class GameCharacter: Codable, SaveableEntity {
     var gifts: GiftModule
     var relationProfile: RelationProfile
 
-    // - Backward-compatible accessors
 
     var name: String { identity.name }
     var description: String { identity.description }
@@ -41,23 +40,15 @@ class GameCharacter: Codable, SaveableEntity {
             self.relationProfile = relationProfile
         }
     
-    // - Dialogue helpers
 
-    /// Returns dialogue lines appropriate for the given relationship tier index.
     func dialogueForTier(_ tierIndex: Int) -> [String] {
         return dialogue.linesForTier(tierIndex)
     }
 
-    // - SaveableEntity
-
-    /// Produces a snapshot of this character's current state across all modules.
-    /// Module-level encoding is not yet implemented; moduleData is intentionally
-    /// empty until each module's `toSaveState()` is added.
     func captureSnapshot() -> AnyCodable {
         return AnyCodable(CharacterSaveState(id: id.uuidString, moduleData: [:]))
     }
 
-    // - Codable (maps flat npcs.json layout → module structs)
 
     private enum CodingKeys: String, CodingKey {
         case id
@@ -97,6 +88,7 @@ class GameCharacter: Codable, SaveableEntity {
         try c.encode(dialogue.lines, forKey: .dialogue)
         try c.encode(relationProfile, forKey: .relationProfile)
     }
+    
     /**
     func captureSnapshot() -> AnyCodable {
         var dict: [String: AnyCodable] = [:]

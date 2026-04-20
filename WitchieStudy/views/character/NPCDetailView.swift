@@ -171,14 +171,14 @@ struct GiftSelectionSheet: View {
 
                 let slots = appState.inventory.inv.slots
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 15) {
-                    ForEach(0..<slots.count, id: \.self) { index in
+                    ForEach(0.<slots.count, id: \.self) { index in
                         if let item = slots[index] {
                             Button(action: {
                                 if let result = GiftService.giftItem(
                                     item: item,
                                     to: character,
                                     inventory: appState.inventory,
-                                    relationships: appState.relationships
+                                    relationships: appState.relations
                                 ) {
                                     onGift(result)
                                     dismiss()
