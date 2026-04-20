@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WardrobeView: View {
-    @State private var manager = WardrobeManager()
+    @Environment(AppState.self) var appState
     @State private var selectedCategory: WardrobeCategory = .tops
     
     var body: some View {
@@ -11,14 +11,13 @@ struct WardrobeView: View {
                     .fill(Color.secondary.opacity(0.2))
                     .frame(height: 300)
                 
-                Text("Character Sprite Preview")
-                    .foregroundColor(.gray)
+                AnimationPanel()
                 
                 // Logic for layering sprites would go here
             }
 
-            CategoryPicker()
-            WardrobeItemScrollView(manager: manager, selectedCategory: selectedCategory)
+            CategoryPicker(selectedCategory: $selectedCategory)
+            WardrobeItemScrollView(manager: appState.wardrobe, selectedCategory: selectedCategory)
         }
     }
 }
@@ -30,13 +29,15 @@ struct WardrobeItemScrollView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 15) {
-                let filteredItems = manager.wardrobe[selectedCategory]
-                ForEach(filteredItems!) { item in
-                    ItemCard(item: item, isEquipped: manager.equipped[selectedCategory] == item)
-                        .onTapGesture {
-                            manager.equip(item)
-                        }
+                if let filteredItems = manager.wardrobe[selectedCategory] {
+                    ForEach(filteredItems) { item in
+                        ItemCard(item: item, isEquipped: manager.equipped[selectedCategory] == item)
+                            .onTapGesture {
+                                manager.equip(item)
+                            }
+                    }
                 }
+                
             }
             .padding()
         }
@@ -63,7 +64,7 @@ struct StatBadge: View {
 }
 
 struct CategoryPicker: View {
-    @State private var selectedCategory: WardrobeCategory = .tops
+    @Binding var selectedCategory: WardrobeCategory
 
     var body: some View {
         Picker("Category", selection: $selectedCategory) {

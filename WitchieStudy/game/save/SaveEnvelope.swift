@@ -1,6 +1,6 @@
 import Foundation
 
-struct SaveEnvelope: AnyCodable {
+struct SaveEnvelope {
     var saveTime: Date
     let data: AnyCodable
     

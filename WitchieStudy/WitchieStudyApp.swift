@@ -9,9 +9,11 @@ struct WithieStudyApp: App  {
     
     init() {
         do {
-            container = try ModelContainer(for:  ProductivitySession.self, SessionType.self, Inventory.self)
+            container = try ModelContainer(for:  ProductivitySession.self, SessionType.self, Inventory.self, PlayerCharacter.self, RelationshipState.self)
             InventoryInitializer.initialize(container: container)
             SessionInitializer.initialize(container: container)
+            PlayerCharacterInitializer.initialize(container: container)
+            
             _appState = State(initialValue: AppState(modelContext: container.mainContext))
         } catch {
             fatalError("Failed to initialize SwiftData")
@@ -24,6 +26,6 @@ struct WithieStudyApp: App  {
                 .background(Color("AccentColor"))
                 .environment(appState)
         }
-        .modelContainer(for: [PastSession.self, SessionType.self, ProductivitySession.self, Inventory.self])
+        .modelContainer(for: [PastSession.self, SessionType.self, ProductivitySession.self, Inventory.self, PlayerCharacter.self, RelationshipState.self])
     }
 }

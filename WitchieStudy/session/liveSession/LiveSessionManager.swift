@@ -29,6 +29,7 @@ class LiveSessionManager {
     var sessionTypeManager: SessionTypeManager
     
     var onTick: (() -> Void)?
+    var onFinish: ((_ actualTimeSpent: Double, _ sessionType: SessionType) -> Void)?
     
     var timeFormatted: String {
         let minutes = self.secondsRemain / 60
@@ -94,14 +95,17 @@ class LiveSessionManager {
         pause()
         isActive = false
         let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
+        let sessionType = currentSession.type
         
         resetTimer()
         currentSession.started = false
         // if actualTimeSpent < 60 { return }
         
-        historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productivy time had passed...")
+        historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productive time had passed...")
         
         secondsRemain = currentSession.durationInSeconds
+        
+        onFinish?(actualTimeSpent, sessionType)
     }
     
     func handleAppExit() {

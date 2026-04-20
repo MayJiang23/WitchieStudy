@@ -13,11 +13,22 @@ struct MainView: View {
                     SessionHistoryView()
                 } else if currentTab == "Timer" {
                     TimerView()
+                } else if currentTab == "Character" {
+                    CharacterProfileView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             HStack(spacing: 50) {
+                Button(action: { currentTab = "Character" }) {
+                    VStack {
+                        Image(systemName: "person.fill")
+                            Text("Character")
+                        }
+                        .font(.caption)
+                    }
+                    .foregroundColor(currentTab == "Character" ? .purple : .gray)
+                
                 Button(action: { currentTab = "Inventory" }) {
                     VStack {
                         Image(systemName: "bag")
@@ -28,7 +39,7 @@ struct MainView: View {
                 
                 Button(action: { currentTab = "Timer" }) {
                     VStack {
-                        Image(systemName: "car")
+                        Image(systemName: "timer")
                         Text("Timer")
                     }
                 }

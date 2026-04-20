@@ -66,6 +66,25 @@ class CharacterModelNode: SKNode {
     
     func setLibrary(library: AnimationLibrary, name: String) {
         animationLibraries[name] = library
+        
+        /// Swap the texture atlas for a given body part, allowing outfit changes.
+        func swapPart(partName: String, newAtlasName: String) {
+            guard let existingNode = componentNodes[partName] else {
+                print("No component found for part: \(partName)")
+                return
+            }
+
+            let frames = FrameStorage.shared.get(part: newAtlasName, key: existingNode.visual.name)
+            guard let frames = frames, let firstFrame = frames.textures.first else {
+                print("Failed to load frames for atlas: \(newAtlasName)")
+                return
+            }
+
+            existingNode.texture = firstFrame
+            existingNode.size = firstFrame.size()
+            existingNode.frameHub = VisualFrameHub()
+            existingNode.frameHub.set(action: frames.actionName, direction: frames.dirName, textures: frames)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
