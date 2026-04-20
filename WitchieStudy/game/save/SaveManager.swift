@@ -8,6 +8,6 @@ class SaveManager {
             worldState[entity.entityId] = AnyCodable(entity.captureSnapshot())
         }
         
-        let envelope = SaveEnvelope(worldState)
+        //let envelope = SaveEnvelope(worldState)
     }
 }

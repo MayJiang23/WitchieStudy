@@ -15,7 +15,7 @@ class SessionReportManager {
     
     
     //Should change to add or update event later on
-    func addEvents(events: Array<ReportableEvent>) {
+    func addEvents(events: [any ReportableEvent]) {
         report.addEvents(events)
     }
     
