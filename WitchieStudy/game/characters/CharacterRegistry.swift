@@ -8,21 +8,21 @@ class CharacterRegistry {
     }
 
     func allCharacters() -> [GameCharacter] {
-        return characters
+        return self.characters
     }
 
-    func getCharacter(named name: String) -> GameCharacter? {
-        return characters.first { $0.name == name }
+    subscript(name: String) -> GameCharacter? {
+        return self.characters.first { $0.name == name }
     }
 
-    func getCharacter(byId id: UUID) -> GameCharacter? {
-        return characters.first { $0.id == id }
+    subscript(id: UUID) -> GameCharacter? {
+        return self.characters.first { $0.id == id }
     }
-
 
     private func loadCharacters() {
         if let loaded = AssetLoader.loadJson(filename: "data/characters/npcs", as: [GameCharacter].self) {
             self.characters = loaded
+            print(self.characters)
         } else {
             print("Failed to load NPC data from npcs.json")
         }

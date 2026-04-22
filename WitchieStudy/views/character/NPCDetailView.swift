@@ -23,7 +23,7 @@ struct NPCDetailView: View {
                 }
                 .scaleEffect(portraitScale)
                 .onTapGesture {
-                    let tierIndex = appState.relations.getRelationship(for: character.name)?.currentTierIndex ?? 0
+                    let tierIndex = appState.relations.getRelationship(for: character.identity.name)?.currentTierIndex ?? 0
                     let lines = character.dialogueForTier(tierIndex)
                     if let line = lines.randomElement() {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
@@ -56,7 +56,7 @@ struct NPCDetailView: View {
                         .padding(.horizontal)
                 }
 
-                Text(character.name)
+                Text(character.identity.name)
                     .font(.largeTitle.bold())
 
                 Text(character.description)
@@ -150,7 +150,7 @@ struct NPCDetailView: View {
                 lastGiftResult = result
             }
         }
-        .navigationTitle(character.name)
+        .navigationTitle(character.identity.name)
         //.navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -165,7 +165,7 @@ struct GiftSelectionSheet: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Select an item to gift to \(character.name)")
+                Text("Select an item to gift to \(character.identity.name)")
                     .font(.headline)
                     .padding()
 

@@ -5,7 +5,7 @@ import Foundation
 class GameCharacter: Codable, SaveableEntity {
     @Attribute(.unique) var entityId: String
     
-    @Relationship(deleteRule: .cascade)
+    //@Relationship(deleteRule: .nullify)
     //var modules: Array<Module>
     
     var id: UUID
@@ -18,10 +18,10 @@ class GameCharacter: Codable, SaveableEntity {
     var relationProfile: RelationProfile
 
 
-    var name: String { identity.name }
-    var description: String { identity.description }
-    var portraitImageName: String { identity.portraitImageName }
-    var giftPreferences: [String] { gifts.preferences }
+    //var name: String { identity.name }
+    //var description: String { identity.desc }
+    //var portraitImageName: String { identity.portraitImageName }
+    //var giftPreferences: [String] { gifts.preferences }
 
     
     init(
@@ -51,6 +51,7 @@ class GameCharacter: Codable, SaveableEntity {
 
 
     private enum CodingKeys: String, CodingKey {
+        case entityId
         case id
         case name, description, portraitImageName
         case giftPreferences
@@ -63,6 +64,8 @@ class GameCharacter: Codable, SaveableEntity {
         id = try c.decode(UUID.self, forKey: .id)
         relationProfile = try c.decode(RelationProfile.self, forKey: .relationProfile)
 
+        entityId = try c.decode(String.self, forKey: .entityId)
+        
         identity = IdentityModule(
             name: try c.decode(String.self, forKey: .name),
             description: try c.decode(String.self, forKey: .description),
@@ -82,7 +85,7 @@ class GameCharacter: Codable, SaveableEntity {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(id, forKey: .id)
         try c.encode(identity.name, forKey: .name)
-        try c.encode(identity.description, forKey: .description)
+        try c.encode(identity.desc, forKey: .description)
         try c.encode(identity.portraitImageName, forKey: .portraitImageName)
         try c.encode(gifts.preferences, forKey: .giftPreferences)
         try c.encode(dialogue.lines, forKey: .dialogue)

@@ -27,25 +27,31 @@ struct GiftService {
         inventory.inv.slots[slotIndex] = nil
 
         // Calculate XP
-        let isPreferred = character.giftPreferences.contains(item.name)
+        let isPreferred = self.isPreferred(characters: character, item: item)
         let xpGained = isPreferred ? baseXP * preferredBonusMultiplier : baseXP
-
+        
         // Get tier before adding XP
-        let tierBefore = relationships.getRelationship(for: character.name)?.currentTierIndex ?? 0
-
+        let tierBefore = relationships.getRelationship(for: character.identity.name)?.currentTierIndex ?? 0
+        
+        let characterName = character.identity.name
+        
         // Add XP
-        relationships.addXP(for: character.name, amount: xpGained)
+        relationships.addXP(for: characterName, amount: xpGained)
 
         // Check if tier changed
-        let tierAfter = relationships.getRelationship(for: character.name)?.currentTierIndex ?? 0
+        let tierAfter = relationships.getRelationship(for: characterName)?.currentTierIndex ?? 0
         let didTierUp = tierAfter > tierBefore
-        let newTier = didTierUp ? relationships.getTier(for: character.name) : nil
+        let newTier = didTierUp ? relationships.getTier(for: characterName) : nil
 
         return GiftResult(
             xpGained: xpGained,
             tierUp: didTierUp,
             newTier: newTier,
-            characterName: character.name
+            characterName: characterName
         )
+    }
+    
+    static func isPreferred(characters: GameCharacter, item: InventoryItem) -> Bool {
+        return characters.gifts.preferences.contains(item.itemDef)
     }
 }

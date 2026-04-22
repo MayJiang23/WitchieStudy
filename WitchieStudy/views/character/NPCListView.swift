@@ -36,7 +36,7 @@ struct NPCRow: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(character.name)
+                Text(character.identity.name)
                     .font(.headline)
 
                 if let tier = relationships.getTier(for: character.name) {
