@@ -5,7 +5,7 @@ protocol RelationEvent: ReportableEvent {
 
 
 extension RelationEvent {
-    func getReportData(_ config: Any) -> Any {
+    func getReportData(_ config: Any?) -> (String, Int)? {
         return (self.targetId, self.amount)
     }
 }

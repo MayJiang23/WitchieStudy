@@ -14,3 +14,8 @@ class SessionType: Identifiable {
     }
 }
 
+extension SessionType {
+    static func createDefault() -> SessionType {
+        return SessionType(title: "Study", themeAction: .study)
+    }
+}

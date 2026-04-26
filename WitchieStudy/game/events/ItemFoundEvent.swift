@@ -1,12 +1,4 @@
-struct ItemFoundEvent: ItemEvent {
-    var items: Array<InventoryItem>
-    
-    init(items: Array<InventoryItem>) {
-        self.items = items
-    }
-    
-    func getReportString() -> String {
-        let formatted = items.compactMap {$0.name}
-        return "Found items: " + formatted.joined(separator: ",")
-    }
+protocol ItemFoundEvent: ItemEvent where AppData == (String, [InventoryItem])  {
+    var items: [InventoryItem] { set get }
+    var targetId: String { set get }
 }

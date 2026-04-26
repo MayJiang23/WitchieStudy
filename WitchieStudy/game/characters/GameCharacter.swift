@@ -54,7 +54,7 @@ class GameCharacter: Codable, SaveableEntity {
         case entityId
         case id
         case name, description, portraitImageName
-        case giftPreferences
+        case likes, hates
         case dialogue
         case relationProfile
     }
@@ -75,9 +75,13 @@ class GameCharacter: Codable, SaveableEntity {
         dialogue = DialogueModule(
             lines: try c.decodeIfPresent([String: [String]].self, forKey: .dialogue) ?? [:]
         )
-
+        let likes = try c.decodeIfPresent([String].self, forKey: .likes)
+        let hates = try c.decodeIfPresent([String].self, forKey: .hates)
+        
+        
         gifts = GiftModule(
-            preferences: try c.decodeIfPresent([String].self, forKey: .giftPreferences) ?? []
+            likes: GiftPreference().resolve(itemId: likes, using: ItemRegistry),
+            hates: GiftPreference().resolve(itemId: hates, using: <#T##ItemRegistry#>) ?? []
         )
     }
 

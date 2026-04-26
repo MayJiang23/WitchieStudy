@@ -36,4 +36,3 @@ class ProductivitySession: Identifiable {
         }
     }
 }
-

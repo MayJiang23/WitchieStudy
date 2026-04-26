@@ -1,6 +1,10 @@
 import Foundation
 
 struct GiftEvent: RelationEvent {
+    func getData(_ config: Any) -> Any {
+        return (targetId, amount, tierUp, newTierTitle ?? "")
+    }
+    
     var targetId: String
     var amount: Int
     var items: [InventoryItem]

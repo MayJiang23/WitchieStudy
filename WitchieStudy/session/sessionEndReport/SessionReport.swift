@@ -17,5 +17,4 @@ class SessionReport: Identifiable {
     func addEvents(_ events: [any ReportableEvent]) {
         self.events = self.events + events
     }
-    
 }

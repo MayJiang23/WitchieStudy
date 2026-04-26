@@ -1,9 +1,4 @@
-protocol ReportableEvent {
-    func getReportData(_ config: Any) -> Any
-}
-
-extension ReportableEvent {
-    func getReportData(_ config: Any) -> Any {
-        print("Does not implement getReportData.")
-    }
+protocol ReportableEvent: AppEvent {
+    associatedtype ReportData
+    func getReport(_ config: Any?) -> ReportData?
 }

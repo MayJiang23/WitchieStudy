@@ -4,8 +4,8 @@ import Foundation
 enum ItemSource {
     case loot(sessionID: UUID?)
     case gift(sender: String)
-    case shop(price: Int)
-    case quest(questName: String)
+    //case shop(price: Int)
+    //case quest(questName: String)
 }
 /**
 @Observable

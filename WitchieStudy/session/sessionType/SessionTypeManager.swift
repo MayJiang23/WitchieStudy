@@ -2,40 +2,36 @@ import Foundation
 import SwiftData
 
 class SessionTypeManager {
-    var modelContext: ModelContext
+    var allTypes: Array<SessionType>
     
-    var allTypes: Array<SessionType> {
-        let descriptor = FetchDescriptor<SessionType>()
-        let types = try! modelContext.fetch(descriptor)
-        return types
+    init() {
+        self.fetchTypes()
     }
     
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
-    }
-    
-    func addType(title: String, themeAction: ThemeAction) -> Bool {
+    func addType(title: String, themeAction: ThemeAction) {
         let predicate = #Predicate<SessionType> {
             $0.title == title
         }
         
         if !hasType(predicate: predicate) {
             let newType = SessionType(title: title, themeAction: themeAction)
-            modelContext.insert(newType)
-            try? modelContext.save()
-            return true
+            
+            Task {
+                await DataCoordinator.shared.insert([newType])
+                await DataCoordinator.shared.save()
+            }
         }
-        return false
     }
     
     func removeType(id: PersistentIdentifier) {
         let predicate = #Predicate<SessionType> {
             $0.id == id
         }
+        let descriptor = FetchDescriptor<SessionType>(predicate: predicate)
         
-        if hasType(predicate: predicate) {
-            try? modelContext.delete(model: SessionType.self, where: predicate)
-            try? modelContext.save()
+        Task {
+            await
+            DataCoordinator.shared.delete(type: SessionType.self, descriptor: descriptor)
         }
     }
     
@@ -43,17 +39,21 @@ class SessionTypeManager {
         let descriptor = FetchDescriptor<SessionType>(
             predicate: predicate
         )
-        
-        return ((try? modelContext.fetchCount(descriptor)) != 0)
+        Task {
+            let result = await DataCoordinator.shared.get(descriptor) != nil
+            return result
+        }
+        return false
     }
     
-    private func deleteAll() {
-        do {
-            try modelContext.delete(model: SessionType.self)
-            try? modelContext.save()
-        } catch {
+    private func fetchTypes() {
+        Task {
+            let descriptor = FetchDescriptor<SessionType>()
+        
+            let types = await DataCoordinator.shared.getOrCreate(descriptor, onCreate: SessionType.createDefault)
+            
+            self.allTypes = types
         }
     }
-
 }
 

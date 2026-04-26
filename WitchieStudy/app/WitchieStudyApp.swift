@@ -5,16 +5,13 @@ import Combine
 @main
 struct WithieStudyApp: App  {
     let container: ModelContainer
-    @State private var appState: AppState
+    @State private var appState: AppEngine
     
     init() {
         do {
-            container = try ModelContainer(for:  ProductivitySession.self, SessionType.self, Inventory.self, PlayerCharacter.self, RelationshipState.self)
-            InventoryInitializer.initialize(container: container)
-            SessionInitializer.initialize(container: container)
             PlayerCharacterInitializer.initialize(container: container)
             
-            _appState = State(initialValue: AppState(modelContext: container.mainContext))
+            _appState = State(initialValue: AppEngine(modelContext: container.mainContext))
         } catch {
             fatalError("Failed to initialize SwiftData")
         }

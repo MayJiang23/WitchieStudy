@@ -14,3 +14,10 @@ class Inventory: Identifiable {
         self.slots = slots
     }
 }
+
+extension Inventory {
+    static func createDefault() -> Inventory {
+        var slots = Array<InventoryItem?>(repeating: nil, count: 15)
+        return Inventory(slots: slots)
+    }
+}

@@ -3,17 +3,32 @@ import SwiftData
 import Combine
 
 @Observable
+@MainActor
 class InventoryManager {
-    var modelContext: ModelContext
-
+    private var cancellables = Set<AnyCancellable>()
+    
     var inv: Inventory!
 
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
-        let newinv = self.fetchInventory()
+    init() {
+        self.fetchInventory()
         
-        if newinv != nil {
-            self.inv = newinv
+        EventBus.shared.subscribe(to: ItemReportSummaryEvent.self, perform: onSummary)
+            .store(in: &cancellables)
+    }
+    
+    func onSummary(_ event: ItemReportSummaryEvent) {
+        if let items = event.getData(Any.self) {
+            addItems(items: items)
+        }
+    }
+    
+    func addItems(items: [InventoryItem]) {
+        for item in items {
+            if let index = inv.slots.firstIndex(where: { $0?.itemDef.id == item.itemDef.id }) {
+                addItem(item: item, index: index)
+            } else {
+                addItemToFirstEmptySlot(item)
+            }
         }
     }
 
@@ -24,51 +39,56 @@ class InventoryManager {
         inv.slots[destinationIndex] = draggedItem
         inv.slots[index] = targetItem
         
-        save()
+        Task {
+            await DataCoordinator.shared.save()
+        }
     }
     
     func addItem(item: InventoryItem, index: Int? = nil) {
-        if index != nil {
-            
-        } else {
-            addItemToFirstEmptySlot(item)
+        if (index != nil) {
+            if var invItem = inv.slots[index!] {
+                if item.itemDef.stackable {
+                    if item.itemDef.maxStack <= (invItem.quantity + item.quantity) {
+                            invItem.quantity = invItem.quantity + item.quantity
+                            Task {
+                                await DataCoordinator.shared.save()
+                            }
+                            return
+                    } else {
+                        let extra = abs(invItem.quantity + item.quantity - item.itemDef.maxStack)
+                        var copy = item
+                        copy.quantity = extra
+                        addItemToFirstEmptySlot(copy)
+                        return
+                    }
+                }
+            } else {
+                inv.slots[index!] = item
+                Task {
+                    await DataCoordinator.shared.save()
+                }
+                return
+            }
         }
+        addItemToFirstEmptySlot(item)
     }
     
     private func addItemToFirstEmptySlot(_ item: InventoryItem) {
         if let emptyIndex = inv.slots.firstIndex(where: { $0 == nil }) {
             inv.slots[emptyIndex] = item
-            save()
+            Task {
+                await DataCoordinator.shared.save()
+            }
         } else {
             print("Inventory is full!")
         }
     }
     
-    private func fetchInventory() -> Inventory? {
+    private func fetchInventory() {
         let descriptor = FetchDescriptor<Inventory>()
         
-        do {
-            let sessions = try modelContext.fetch(descriptor)
-            print(sessions)
-            if let inv = sessions.first {
-                print("found")
-                return inv
-            }
-            return nil
-        } catch {
-            print("Fetch failed: \(error.localizedDescription)")
-            return nil
-        }
-    }
-    
-    private func save() {
-        try? modelContext.save()
-    }
-    
-    private func deleteAll() {
-        do {
-            try modelContext.delete(model: ProductivitySession.self)
-        } catch {
+        Task {
+            self.inv = await DataCoordinator.shared.getOrCreate(descriptor, onCreate: Inventory.createDefault).first
         }
     }
 }

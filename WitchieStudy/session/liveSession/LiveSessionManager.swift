@@ -28,9 +28,6 @@ class LiveSessionManager {
     var historyManager: SessionHistoryManager
     var sessionTypeManager: SessionTypeManager
     
-    var onTick: (() -> Void)?
-    var onFinish: ((_ actualTimeSpent: Double, _ sessionType: SessionType) -> Void)?
-    
     var timeFormatted: String {
         let minutes = self.secondsRemain / 60
         let seconds = self.secondsRemain % 60
@@ -50,9 +47,18 @@ class LiveSessionManager {
                 self.secondsRemain = newValue
                 self.currentSession.secondsRemain = newValue
                 self.currentSession.lastHeartbeat = Date.now
-                self.timerTicked()
             }
             .store(in: &cancellables)
+        
+        self.timer.$secondsRemain
+            .receive(on: RunLoop.main)
+            .filter { $0 % 10 == 0 }
+            .sink { [weak self] newValue in
+                guard let self = self else { return }
+                EventBus.shared.publish(SessionPulseEvent(seconds: newValue))
+            }
+            .store(in: &cancellables)
+        
     }
     
     func editSession(type: SessionType?, durationInSeconds: Int?) {
@@ -65,7 +71,7 @@ class LiveSessionManager {
             timer.setTimer(newTime: durationInSeconds)
             secondsRemain = durationInSeconds
         }
-        save()
+        //save()
     }
     
     func start() {
@@ -73,7 +79,7 @@ class LiveSessionManager {
         isActive = true
         currentSession.started = true
         timer.resume()
-        save()
+        //save()
     }
     
     func resume() {
@@ -84,7 +90,7 @@ class LiveSessionManager {
     func pause() {
         isActive = false
         timer.pause()
-        save()
+        //save()
     }
     
     func resetTimer() {
@@ -92,61 +98,39 @@ class LiveSessionManager {
     }
     
     func finish() {
-        pause()
+        timer.pause()
+        //save()
         isActive = false
-        let actualTimeSpent = Double(currentSession.durationInSeconds - secondsRemain)
+        let actualTimeSpent = Int(currentSession.durationInSeconds - secondsRemain)
         let sessionType = currentSession.type
         
         resetTimer()
         currentSession.started = false
         // if actualTimeSpent < 60 { return }
         
-        historyManager.addSession(type: currentSession.type, duration: actualTimeSpent, dateCompleted: Date.now, notes: "A productive time had passed...")
+        historyManager.addSession(type: currentSession.type, duration: Double(actualTimeSpent), dateCompleted: Date.now, notes: "A productive time had passed...")
         
         secondsRemain = currentSession.durationInSeconds
         
-        onFinish?(actualTimeSpent, sessionType)
+        EventBus.shared.publish(SessionFinishEvent(timePassed: actualTimeSpent, type: sessionType))
     }
     
     func handleAppExit() {
         currentSession.secondsRemain = self.secondsRemain
         currentSession.lastHeartbeat = Date.now
-        save()
+        //save()
     }
-    
-    
     
     /** --- PRIVATE FUNCS  --- */
-    private func timerTicked() {
-        if timer.elapsed % 3 == 0 && timer.elapsed != 0 { 
-            onTick?()
-        }
-    }
-    
     private func fetchLiveSession() {
         let descriptor = FetchDescriptor<ProductivitySession>()
-        
-        do {
-            let sessions = try modelContext.fetch(descriptor)
-            if let existingSession = sessions.first {
-                self.currentSession = existingSession
-                
-                self.timer.setTimer(newTime: existingSession.secondsRemain)
-                self.secondsRemain = currentSession.secondsRemain
-            }
-        } catch {
-            print("Fetch failed: \(error.localizedDescription)")
+        Task {
+            let session = await DataCoordinator.shared.getOrCreate(descriptor).first
+            self.currentSession = session
+            self.timer.setTimer(newTime: session?.secondsRemain ?? 1500)
+            self.secondsRemain = currentSession.secondsRemain
         }
     }
     
-    private func save() {
-        try? modelContext.save()
-    }
     
-    private func deleteAll() {
-        do {
-            try modelContext.delete(model: ProductivitySession.self)
-        } catch {
-        }
-    }
 }

@@ -4,24 +4,11 @@ import SwiftData
 @Model
 class PlayerCharacter: Identifiable {
     var id: UUID
-    var name: String
-    var currency: Int
+    var modules: [String: Module] = [:]
 
-    var statsRaw: [String: Int]
-
-    var equippedOutfitRaw: [String: String]
-
-    init(
-        name: String = "Apprentice",
-        currency: Int = 0,
-        statsRaw: [String: Int]? = nil,
-        equippedOutfitRaw: [String: String] = [:]
-    ) {
+    init() {
         self.id = UUID()
-        self.name = name
-        self.currency = currency
-        self.equippedOutfitRaw = equippedOutfitRaw
-
+        
         if let statsRaw = statsRaw {
             self.statsRaw = statsRaw
         } else {
@@ -33,6 +20,9 @@ class PlayerCharacter: Identifiable {
         }
     }
 
+    func get() -> Module {
+        
+    }
 
     func getStat(_ stat: StatType) -> Int {
         return statsRaw[stat.rawValue] ?? 0
