@@ -1,12 +1,10 @@
 import Foundation
 
-enum StatType: String, Codable, CaseIterable, Identifiable {
+enum StatType: String {
     case int = "Resonance"
     case cha = "Composure"
     case wis = "Knowledge"
     case con = "Tenacity"
     case str = "Potency"
     case dex = "Finesse"
-    
-    var id: String { self.rawValue }
 }

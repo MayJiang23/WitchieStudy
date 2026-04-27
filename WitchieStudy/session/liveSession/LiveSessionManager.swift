@@ -125,12 +125,26 @@ class LiveSessionManager {
     private func fetchLiveSession() {
         let descriptor = FetchDescriptor<ProductivitySession>()
         Task {
-            let session = await DataCoordinator.shared.getOrCreate(descriptor).first
+            let session = await LiveSessionHelper.createDefault()
             self.currentSession = session
-            self.timer.setTimer(newTime: session?.secondsRemain ?? 1500)
+            self.timer.setTimer(newTime: session.secondsRemain)
             self.secondsRemain = currentSession.secondsRemain
         }
     }
     
     
+}
+
+final actor LiveSessionHelper {
+    static func createDefault() async -> ProductivitySession {
+        let initialType = await DataCoordinator.shared.getOrCreate(FetchDescriptor<SessionType>(), onCreate: SessionType.createDefault)
+        let initialSession = ProductivitySession(
+            startTime: Date.now,
+            durationInSeconds: 1500,
+            type: initialType.first!,
+            secondsRemain: 1500
+        )
+        await DataCoordinator.shared.insert([initialSession])
+        return initialSession
+    }
 }

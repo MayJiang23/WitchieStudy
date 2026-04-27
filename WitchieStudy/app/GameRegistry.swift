@@ -1,9 +1,10 @@
 class GameRegistry {
-    var items: ItemRegistry
-    var characters: CharacterRegistry
+    var data: [String: Registry]
     
     init() {
-        self.items = ItemRegistry()
-        self.characters = CharacterRegistry()
+        self.data["items"] = ItemRegistry()
+        self.data["characters"] = CharacterRegistry()
     }
+    
+    
 }

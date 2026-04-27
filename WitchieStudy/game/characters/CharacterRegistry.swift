@@ -1,6 +1,6 @@
 import Foundation
 
-class CharacterRegistry {
+class CharacterRegistry: Registry {
     private var characters: [GameCharacter] = []
 
     init() {

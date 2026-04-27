@@ -1,6 +1,6 @@
 import Foundation
 
-class ItemRegistry {
+class ItemRegistry: Registry {
     private var items: [ItemDef] = []
 
     init() {

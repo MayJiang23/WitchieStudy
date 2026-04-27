@@ -18,7 +18,4 @@ struct ClothingItem: Identifiable, Hashable {
     let imageName: String
     let price: Int
     var isUnlocked: Bool = false
-    
-    var atlasName: String = ""
-    var partName: String = ""
 }

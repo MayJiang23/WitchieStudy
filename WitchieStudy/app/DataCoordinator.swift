@@ -5,7 +5,7 @@ import Foundation
 @ModelActor
 actor DataCoordinator {
     static let shared = DataCoordinator()
-        
+    
     let container: ModelContainer
     let context: ModelContext
     
@@ -18,10 +18,6 @@ actor DataCoordinator {
         _ descriptor: FetchDescriptor<T>,
         onCreate: (@Sendable () -> T)? = nil
     ) -> [T] {
-        if T.self == ProductivitySession.self {
-            return createDefaultSession() as! [T]
-        }
-        
         if let existing = self.get(descriptor) {
             return existing
         }
@@ -64,7 +60,7 @@ actor DataCoordinator {
     func delete<T: PersistentModel>(type: T.Type, descriptor: FetchDescriptor<T>) {
         do {
             let itemsToDelete = try self.context.fetch(descriptor)
-                    
+            
             for item in itemsToDelete {
                 self.context.delete(item)
             }
@@ -81,17 +77,4 @@ actor DataCoordinator {
             print("Delete all failed: \(error)")
         }
     }
-    
-    private func createDefaultSession() -> [ProductivitySession] {
-        let initialType = getOrCreate(FetchDescriptor<SessionType>(), onCreate: SessionType.createDefault)
-        let initialSession = ProductivitySession(
-            startTime: Date.now,
-            durationInSeconds: 1500,
-            type: initialType.first!,
-            secondsRemain: 1500
-        )
-        insert([initialSession])
-        return [initialSession]
-    }
-    
 }

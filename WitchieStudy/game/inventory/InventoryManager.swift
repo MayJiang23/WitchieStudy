@@ -22,7 +22,7 @@ class InventoryManager {
         }
     }
     
-    func addItems(items: [InventoryItem]) {
+    func addItems(to entityId: UUID, items: [InventoryItem]) {
         for item in items {
             if let index = inv.slots.firstIndex(where: { $0?.itemDef.id == item.itemDef.id }) {
                 addItem(item: item, index: index)

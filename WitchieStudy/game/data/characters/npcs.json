@@ -20,49 +20,5 @@
             ],
             "currentTier": 0
         }
-    },
-    {
-        "id": "B2C3D4E5-F6A7-8901-BCDE-F12345678901",
-        "name": "Aldric",
-        "description": "A gruff but kind blacksmith who forges enchanted equipment. He respects hard work and perseverance above all.",
-        "portraitImageName": "portrait_aldric",
-        "giftPreferences": ["Steel Shield", "Shield"],
-        "dialogue": {
-            "0": ["Hmph. Another one looking for handouts? Prove your mettle first.", "The forge waits for no one. Get to work."],
-            "1": ["You've got grit, I'll give you that.", "Keep showing up and maybe I'll teach you a thing or two."],
-            "2": ["Ha! You remind me of myself when I was young.", "Here, take this — you've earned it through sweat and steel."],
-            "3": ["You're the finest apprentice I've ever had.", "The flames of the forge burn eternal, just like our bond."]
-        },
-        "relationProfile": {
-            "tiers": [
-                { "id": "55555555-5555-5555-5555-555555555555", "title": "Stranger", "threshold": 0, "description": "Just another face passing the forge." },
-                { "id": "66666666-6666-6666-6666-666666666666", "title": "Customer", "threshold": 60, "description": "A regular at the smithy." },
-                { "id": "77777777-7777-7777-7777-777777777777", "title": "Ally", "threshold": 180, "description": "A trusted friend of the forge." },
-                { "id": "88888888-8888-8888-8888-888888888888", "title": "Sworn Brother", "threshold": 350, "description": "Bound by fire and friendship." }
-            ],
-            "currentTier": 0
-        }
-    },
-    {
-        "id": "C3D4E5F6-A7B8-9012-CDEF-123456789012",
-        "name": "Luna",
-        "description": "A whimsical herbalist who tends to a magical garden. She loves rare coins and shiny trinkets.",
-        "portraitImageName": "portrait_luna",
-        "giftPreferences": ["Gold Coin"],
-        "dialogue": {
-            "0": ["Oh! A visitor! The flowers were just telling me someone was coming.", "Don't step on the moonblossoms, please!"],
-            "1": ["You came back! The garden missed you. Well, I missed you too.", "Would you like to help me water the starlight ferns?"],
-            "2": ["I made you a special herbal tea! It helps with focus, you know.", "You're my favorite person to share the garden with."],
-            "3": ["The garden blooms brighter when you're here.", "I've been saving the rarest seed just for you. Let's plant it together!"]
-        },
-        "relationProfile": {
-            "tiers": [
-                { "id": "99999999-9999-9999-9999-999999999999", "title": "Passerby", "threshold": 0, "description": "A curious soul wandering near the garden." },
-                { "id": "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA", "title": "Garden Guest", "threshold": 40, "description": "Welcome among the flowers." },
-                { "id": "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB", "title": "Blossom Friend", "threshold": 120, "description": "A dear companion of the garden." },
-                { "id": "CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC", "title": "Soulmate", "threshold": 280, "description": "Two hearts intertwined like vines." }
-            ],
-            "currentTier": 0
-        }
     }
 ]
